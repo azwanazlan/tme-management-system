@@ -1,0 +1,1 @@
+export const ID_CHAR_LENGTH = 20;
