@@ -16,7 +16,7 @@ export const testDatabaseConnection = async (): Promise<void> => {
   try {
     await dbContext.authenticate();
     console.log("Connected to the database");
-      await dbContext.sync({ alter: true });
+    await dbContext.sync({ alter: true });
   } catch (error) {
     console.error("Error connecting to the database:", error);
   }

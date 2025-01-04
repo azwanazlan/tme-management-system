@@ -6,7 +6,6 @@ import {authenticate} from "@/pages/api/utilities/tokenUtils";
 //
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   await authenticate(req, res);
-  await testDatabaseConnection();
   if (req.method == 'POST') {
     try {
       const {name, houseNo, phoneNo} = req.body;
@@ -18,7 +17,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(201).json(resident);
     } catch (error) {
       console.error(error);
-      res.status(500).json({message: 'Internal Server Error'});
+      res.status(500).json({
+        message: 'Internal Server Error',
+        error: error
+      });
     }
   }
   if (req.method == 'GET') {
@@ -34,15 +36,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
       )
       const response = {
-        data: residents,
         total: residents.length,
         pageNumber: pageNumber,
         sizeLimit: sizeLimit,
+        data: residents,
       };
       res.status(200).json(response);
     } catch (error) {
       console.error(error);
-      res.status(500).json({message: 'Internal Server Error'});
+      res.status(500).json({
+        message: 'Internal Server Error',
+        error: error,
+      });
     }
   }
 }

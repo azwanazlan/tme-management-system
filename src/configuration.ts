@@ -1,6 +1,3 @@
-//convert this to next js variable
-
-
 
 interface AppConfig {
     DB_HOST: string;
