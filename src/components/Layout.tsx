@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import LogoutButton from './LogoutButton';
 
 interface LayoutProps {
     children: ReactNode;
@@ -70,6 +71,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             </a>
           </li>
         </ul>
+        <LogoutButton />
       </nav>
       <main
         style={{

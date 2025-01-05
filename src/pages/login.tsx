@@ -1,46 +1,53 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 
 const LoginPage: React.FC = () => {
-  const [username, setUsername] = useState(''); // Change email to username
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Username:', username); // Log the username instead of email
+    setError('');
+    console.log('Username:', username);
     console.log('Password:', password);
 
-    // Send the login request to the server
-    fetch('/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, password }), // Use username instead of email
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the server
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
       });
 
-    // Redirect to dashboard
-    window.location.href = '/dashboard';
+      if (response.ok) {
+        await router.push('/dashboard');
+      } else {
+        const data = await response.json();
+        setError(data.message || 'Invalid credentials, please try again.');
+      }
+    } catch (error) {
+      setError('An error occurred while trying to log in. Please try again later.');
+      console.error('Login error:', error);
+    }
+  };
+
+  const handleBackToMain = () => {
+    router.push('/main');
   };
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#f5f5f5' }}>
       <div
         style={{
-          backgroundColor: '#ffffff', // Light background for the form
+          backgroundColor: '#ffffff',
           padding: '40px',
           borderRadius: '12px',
           width: '400px',
           boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-          color: '#333333', // Dark text for better readability
+          color: '#333333',
           textAlign: 'center',
         }}
       >
@@ -58,10 +65,10 @@ const LoginPage: React.FC = () => {
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: '20px' }}>
             <input
-              type="text" // Change to text for username
-              value={username} // Use username state instead of email
-              onChange={(e) => setUsername(e.target.value)} // Update username
-              placeholder="Username" // Update placeholder text
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username"
               style={{
                 width: '100%',
                 padding: '12px',
@@ -71,7 +78,7 @@ const LoginPage: React.FC = () => {
                 color: '#333',
                 fontSize: '1rem',
                 outline: 'none',
-                boxSizing: 'border-box', // Ensures padding doesn't affect the width
+                boxSizing: 'border-box',
               }}
               required
             />
@@ -91,7 +98,7 @@ const LoginPage: React.FC = () => {
                 color: '#333',
                 fontSize: '1rem',
                 outline: 'none',
-                boxSizing: 'border-box', // Ensures padding doesn't affect the width
+                boxSizing: 'border-box',
               }}
               required
             />
@@ -103,7 +110,7 @@ const LoginPage: React.FC = () => {
               padding: '14px',
               borderRadius: '8px',
               border: 'none',
-              backgroundColor: '#58a6ff', // Blue accent for the button
+              backgroundColor: '#58a6ff',
               color: '#ffffff',
               fontSize: '1.1rem',
               cursor: 'pointer',
@@ -115,6 +122,38 @@ const LoginPage: React.FC = () => {
                         Login
           </button>
         </form>
+        {error && (
+          <div
+            style={{
+              marginTop: '20px',
+              color: '#d32f2f',
+              fontSize: '1rem',
+              fontWeight: 500,
+              fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+            }}
+          >
+            {error}
+          </div>
+        )}
+        <button
+          onClick={handleBackToMain}
+          style={{
+            marginTop: '20px',
+            width: '100%',
+            padding: '14px',
+            borderRadius: '8px',
+            border: 'none',
+            backgroundColor: '#e0e0e0',
+            color: '#333',
+            fontSize: '1.1rem',
+            cursor: 'pointer',
+            transition: 'background-color 0.3s',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#d5d5d5')}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#e0e0e0')}
+        >
+                    Back to Main Page
+        </button>
       </div>
     </div>
   );

@@ -28,8 +28,12 @@ export async function middleware(req: NextRequest) {
   }
 
   if (!token) {
-    // If no token is found, respond with 401 Unauthorized
-    return new NextResponse('Authorization required', { status: 401 });
+    // If no token is found, handle API and page requests differently
+    if (pathname.startsWith('/api/')) {
+      return new NextResponse('Authorization required', { status: 401 });
+    } else {
+      return NextResponse.redirect(new URL('/login', req.url));
+    }
   }
 
   try {
@@ -37,12 +41,18 @@ export async function middleware(req: NextRequest) {
     const isVerified = await jwtVerify(token, secretKeyBytes);
 
     if (isVerified) {
-      return NextResponse.next();
+      const response = NextResponse.next();
+      response.cookies.set('token', token, { httpOnly: true, maxAge: 3600, path: '/', secure: true, sameSite: 'none' });
+      return response;
     }
   } catch (error) {
     console.debug('JWT Error:', error);
-    // If token is invalid, respond with 401 Unauthorized
-    return new NextResponse('Invalid or expired token', { status: 401 });
+    // If token is invalid, handle API and page requests differently
+    if (pathname.startsWith('/api/')) {
+      return new NextResponse('Invalid or expired token', { status: 401 });
+    } else {
+      return NextResponse.redirect(new URL('/login', req.url));
+    }
   }
 }
 
