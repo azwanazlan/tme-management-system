@@ -25,7 +25,7 @@ ResidentEntity.init(
       allowNull: false,
     },
     houseNo: {
-      type: new DataTypes.NUMBER(),
+      type: new DataTypes.INTEGER(),
       allowNull: true,
     },
     phoneNo: {

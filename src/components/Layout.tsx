@@ -51,7 +51,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </li>
           <li style={{ marginBottom: '15px' }}>
             <a
-              href="/profile"
+              href="/table"
               style={{
                 textDecoration: 'none',
                 color: '#ffffff',
@@ -66,7 +66,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)')}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)')}
             >
-                            Profile
+                            Table
             </a>
           </li>
         </ul>

@@ -7,14 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const id = req.query.id as string;
       const resident = await ResidentEntity.findByPk(id);
       if (resident) {
-        // convert to JSON object ResidentResponseDto
-        const response = {
-          id: resident.id,
-          name: resident.name,
-          phoneNo: resident.phoneNo,
-          role: resident.role,
-        }
-        res.status(200).json(response);
+        res.status(200).json(resident);
       } else {
         res.status(404).json({message: 'Resident not found'});
       }

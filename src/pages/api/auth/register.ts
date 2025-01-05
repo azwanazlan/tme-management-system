@@ -8,7 +8,7 @@ import {testDatabaseConnection} from "@/services/database";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { username, password } = req.body;
 
-  await testDatabaseConnection();
+  // await testDatabaseConnection();
   // await authenticate(req, res);
   // Check if username or email already exists
   const existingUser = await AdminEntity.findOne({ where: { username } });

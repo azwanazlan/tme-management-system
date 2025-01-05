@@ -2,10 +2,8 @@
 import {ResidentEntity} from "@/model/resident";
 import {NextApiRequest, NextApiResponse} from "next";
 import {testDatabaseConnection} from "@/services/database";
-import {authenticate} from "@/pages/api/utilities/tokenUtils";
-//
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  await authenticate(req, res);
   if (req.method == 'POST') {
     try {
       const {name, houseNo, phoneNo} = req.body;
@@ -51,11 +49,3 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
   }
 }
-
-//URL: http://localhost:3000/api/users
-// {
-//   "name": "John Doe",
-//   "houseNo": "123 Main St",
-//   "phoneNo": "123-456-7890",
-//   "role": "Resident"
-// }

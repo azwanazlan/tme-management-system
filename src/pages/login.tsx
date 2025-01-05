@@ -1,12 +1,34 @@
 import React, { useState } from 'react';
 
 const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState(''); // Change email to username
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle login logic here
+    console.log('Username:', username); // Log the username instead of email
+    console.log('Password:', password);
+
+    // Send the login request to the server
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }), // Use username instead of email
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response from the server
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    // Redirect to dashboard
+    window.location.href = '/dashboard';
   };
 
   return (
@@ -36,10 +58,10 @@ const LoginPage: React.FC = () => {
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: '20px' }}>
             <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
+              type="text" // Change to text for username
+              value={username} // Use username state instead of email
+              onChange={(e) => setUsername(e.target.value)} // Update username
+              placeholder="Username" // Update placeholder text
               style={{
                 width: '100%',
                 padding: '12px',
