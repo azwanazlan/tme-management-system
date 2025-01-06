@@ -48,6 +48,7 @@ const MainPage: React.FC = () => {
       {showModal && (
         <div style={styles.modalOverlay}>
           <div style={styles.modal}>
+            <button onClick={closeModal} style={styles.closeButton}>&times;</button>
             {!formSubmitted ? (
               <div>
                 <h2 style={styles.formTitle}>Pay Monthly Bill</h2>
@@ -62,7 +63,7 @@ const MainPage: React.FC = () => {
                 <h2 style={styles.formTitle}>Payment Link</h2>
                 <p>Your payment link is ready. Click the link below to proceed with the payment.</p>
                 <a href="https://payment.example.com" style={styles.paymentLink}>Proceed to Payment</a>
-                <button onClick={closeModal} style={styles.closeButton}>Close</button>
+                <button onClick={closeModal} style={styles.closeButton}>&times;</button>
               </div>
             )}
           </div>
@@ -103,6 +104,7 @@ const styles = {
     marginBottom: '10px',
     textAlign: 'center' as const,
     width: '200px',
+    border: '1px solid #000000', // Added black border
   },
   modalOverlay: {
     position: 'fixed' as const,
@@ -122,6 +124,17 @@ const styles = {
     boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
     width: '400px',
     textAlign: 'center' as const,
+    position: 'relative' as const,
+  },
+  closeButton: {
+    position: 'absolute' as const,
+    top: '10px',
+    right: '10px',
+    background: 'none',
+    border: 'none',
+    fontSize: '1.5rem',
+    cursor: 'pointer',
+    color: '#333',
   },
   formTitle: {
     fontSize: '1.5rem',
@@ -162,17 +175,6 @@ const styles = {
     textDecoration: 'none',
     fontSize: '1rem',
     fontWeight: 'bold' as const,
-  },
-  closeButton: {
-    marginTop: '20px',
-    padding: '12px 20px',
-    borderRadius: '8px',
-    border: 'none',
-    backgroundColor: '#e53e3e',
-    color: '#ffffff',
-    fontSize: '1rem',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s',
   },
 };
 
