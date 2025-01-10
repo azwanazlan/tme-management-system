@@ -26,85 +26,112 @@ const MainPage: React.FC = () => {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>What do you want to do?</h1>
-      <ul style={styles.menuList}>
-        <li
-          style={styles.menuItem}
-          onClick={() => handleNavigation('/login')}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#c8e6c9')}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#e0f0ff')}
-        >
-            Login as Admin
-        </li>
-        <li
-          style={styles.menuItem}
-          onClick={() => handleNavigation('/pay-bill')}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#c8e6c9')}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#e0f0ff')}
-        >
-            Pay Monthly Bill
-        </li>
-      </ul>
-      {showModal && (
-        <div style={styles.modalOverlay}>
-          <div style={styles.modal}>
-            <button onClick={closeModal} style={styles.closeButton}>&times;</button>
-            {!formSubmitted ? (
-              <div>
-                <h2 style={styles.formTitle}>Pay Monthly Bill</h2>
-                <form onSubmit={handleSubmit} style={styles.form}>
-                  <input type="text" placeholder="House No" style={styles.input} required />
-                  <input type="email" placeholder="Email" style={styles.input} required />
-                  <button type="submit" style={styles.submitButton}>Submit</button>
-                </form>
-              </div>
-            ) : (
-              <div>
-                <h2 style={styles.formTitle}>Payment Link</h2>
-                <p>Your payment link is ready. Click the link below to proceed with the payment.</p>
-                <a href="https://payment.example.com" style={styles.paymentLink}>Proceed to Payment</a>
-                <button onClick={closeModal} style={styles.closeButton}>&times;</button>
-              </div>
-            )}
+      <div style={styles.overlay}>
+        <img src="/logo.png" alt="Logo" style={styles.logo}/>
+        {/*<h1 style={styles.title}>Laman Web Rasmi</h1>*/}
+        <ul style={styles.menuList}>
+          <li
+            style={styles.menuItem}
+            onClick={() => handleNavigation('/login')}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#e3f2fd')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#f5f5f5')}
+          >
+            Log Masuk Admin
+          </li>
+          <li
+            style={styles.menuItem}
+            onClick={() => handleNavigation('/pay-bill')}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#e3f2fd')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#f5f5f5')}
+          >
+            Bayaran Bulanan RELA
+          </li>
+        </ul>
+        {showModal && (
+          <div style={styles.modalOverlay}>
+            <div style={styles.modal}>
+              <button onClick={closeModal} style={styles.closeButton}>&times;</button>
+              {!formSubmitted ? (
+                <div>
+                  <h2 style={styles.formTitle}>Pay Monthly Bill</h2>
+                  <form onSubmit={handleSubmit} style={styles.form}>
+                    <input type="text" placeholder="House No" style={styles.input} required/>
+                    <input type="email" placeholder="Email" style={styles.input} required/>
+                    <button type="submit" style={styles.submitButton}>Submit</button>
+                  </form>
+                </div>
+              ) : (
+                <div>
+                  <h2 style={styles.formTitle}>Payment Link</h2>
+                  <p>Your payment link is ready. Click the link below to proceed with the payment.</p>
+                  <a href="https://payment.example.com" style={styles.paymentLink}>Proceed to Payment</a>
+                  <button onClick={closeModal} style={styles.closeButton}>&times;</button>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
 
 const styles = {
   container: {
-    display: 'flex',
+    display: 'flex', // what is meant by flex?
     flexDirection: 'column' as const,
-    alignItems: 'center',
+    alignItems: 'center', //
     justifyContent: 'center',
     height: '100vh',
-    backgroundColor: '#f0f4f8',
+    backgroundImage: 'url("/taman-mawar-ehsan.png")', // Replace with your image path
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor: 'rgba(249, 251, 253, 0.85)', // Slight transparency with the background color
     color: '#333333',
-    fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
+    fontFamily: 'Inter, Arial, sans-serif',
   },
-  title: {
-    fontSize: '2rem',
-    marginBottom: '20px',
+  overlay: {
+    backgroundColor: 'rgba(255, 255, 255, 0.85)', // Slight transparency with the background color
+    padding: '20px',
+    borderRadius: '12px',
+    width: '100%',
+    maxWidth: '500px',
+    textAlign: 'center' as const,
+    display: 'inline-block',
   },
+  logo: {
+    width: '200px', // Adjust the width as needed
+    height: 'auto',
+    marginTop: '20px', // Space between logo and title
+    marginBottom: '20px', // Space between logo and menu container
+  },
+  // title: {
+  //   fontSize: '2.5rem',
+  //   fontWeight: '600',
+  //   marginBottom: '20px',
+  //   color: '#5db742',
+  //   fontFamily: 'Arial'
+  // },
   menuList: {
     listStyle: 'none',
     padding: 0,
     margin: 0,
   },
   menuItem: {
-    padding: '12px 16px',
-    borderRadius: '8px',
-    backgroundColor: '#e0f0ff',
-    color: '#333333',
-    fontWeight: 'bold' as const,
+    padding: '14px 20px',
+    borderRadius: '12px',
+    backgroundColor: '#f5f5f5',
+    color: '#424242',
+    fontWeight: '500',
     cursor: 'pointer',
-    transition: 'background-color 0.3s ease, color 0.3s ease',
-    marginBottom: '10px',
+    transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
+    marginBottom: '12px',
     textAlign: 'center' as const,
-    width: '200px',
-    border: '1px solid #000000', // Added black border
+    width: '220px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    marginLeft: 'auto', // Centers the item horizontally
+    marginRight: 'auto', // Centers the item horizontally
   },
   modalOverlay: {
     position: 'fixed' as const,
@@ -112,17 +139,17 @@ const styles = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   modal: {
     backgroundColor: '#ffffff',
-    padding: '20px',
-    borderRadius: '8px',
-    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-    width: '400px',
+    padding: '24px',
+    borderRadius: '12px',
+    boxShadow: '0px 6px 16px rgba(0, 0, 0, 0.2)',
+    width: '420px',
     textAlign: 'center' as const,
     position: 'relative' as const,
   },
@@ -137,9 +164,9 @@ const styles = {
     color: '#333',
   },
   formTitle: {
-    fontSize: '1.5rem',
-    marginBottom: '20px',
-    color: '#333333',
+    fontSize: '1.8rem',
+    marginBottom: '16px',
+    color: '#1e88e5',
   },
   form: {
     display: 'flex',
@@ -148,21 +175,21 @@ const styles = {
   },
   input: {
     width: '100%',
-    padding: '12px',
-    marginBottom: '10px',
+    padding: '14px',
+    marginBottom: '12px',
     borderRadius: '8px',
-    border: '1px solid #ccc',
-    backgroundColor: '#f8f8f8',
+    border: '1px solid #ddd',
+    backgroundColor: '#fdfdfd',
     color: '#333',
     fontSize: '1rem',
     outline: 'none',
     boxSizing: 'border-box' as const,
   },
   submitButton: {
-    padding: '12px 20px',
+    padding: '12px 24px',
     borderRadius: '8px',
     border: 'none',
-    backgroundColor: '#58a6ff',
+    backgroundColor: '#1e88e5',
     color: '#ffffff',
     fontSize: '1rem',
     cursor: 'pointer',
@@ -171,10 +198,10 @@ const styles = {
   paymentLink: {
     display: 'block',
     marginTop: '20px',
-    color: '#58a6ff',
+    color: '#1e88e5',
     textDecoration: 'none',
     fontSize: '1rem',
-    fontWeight: 'bold' as const,
+    fontWeight: '600',
   },
 };
 
