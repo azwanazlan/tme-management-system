@@ -6,6 +6,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { username, password } = req.body;
   const user = await AdminEntity.findOne({ where: { username } });
+
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
   //Validate username and password in DB
   if (user && bcrypt.compareSync(password, user.dataValues.password)) {
     const token = jwt.sign({ userId: user.id }, 'your_secret_key', { expiresIn: '1h' });

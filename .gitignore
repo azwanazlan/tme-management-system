@@ -46,3 +46,4 @@ next-env.d.ts
 /init.sql
 /pgadmin-data
 /db-data
+/dist

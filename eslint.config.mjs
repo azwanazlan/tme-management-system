@@ -16,6 +16,7 @@ const eslintConfig = [
     rules: {
       indent: ["error", 2],
     },
+    files: ["src/**/*.ts", "src/**/*.tsx"],
   },
 ];
 

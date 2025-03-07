@@ -22,6 +22,8 @@ const LoginPage: React.FC = () => {
         body: JSON.stringify({ username, password }),
       });
 
+      console.log('response: ', response);
+
       if (response.ok) {
         await router.push('/dashboard');
       } else {
@@ -39,7 +41,21 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#f5f5f5' }}>
+    <div style={{
+      display: 'flex', // what is meant by flex?
+      flexDirection: 'column' as const,
+      alignItems: 'center', //
+      justifyContent: 'center',
+      height: '100vh',
+      backgroundImage: 'url("/taman-mawar-ehsan.png")', // Replace with your image path
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      backgroundColor: 'rgba(249, 251, 253, 0.85)', // Slight transparency with the background color
+      color: '#333333',
+      fontFamily: 'Inter, Arial, sans-serif',
+    }}
+    >
       <div
         style={{
           backgroundColor: '#ffffff',
