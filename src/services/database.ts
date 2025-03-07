@@ -1,5 +1,6 @@
 import {Sequelize} from "sequelize";
-import {ENV} from "@/configuration";
+import { ENV } from '@/configuration';
+
 
 export const dbContext = new Sequelize(
   ENV.DB_NAME,
@@ -16,8 +17,11 @@ export const testDatabaseConnection = async (): Promise<void> => {
   try {
     await dbContext.authenticate();
     console.log("Connected to the database");
-    await dbContext.sync({ alter: true });
+    await dbContext.sync();
+    console.log("Database synced");
   } catch (error) {
     console.error("Error connecting to the database:", error);
   }
 };
+
+module.exports = { testDatabaseConnection };

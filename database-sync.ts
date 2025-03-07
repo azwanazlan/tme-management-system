@@ -1,4 +1,4 @@
-import {testDatabaseConnection} from "@/services/database";
+import {testDatabaseConnection} from "./src/services/database";
 
 (async () => {
   await testDatabaseConnection();

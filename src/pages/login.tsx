@@ -22,6 +22,8 @@ const LoginPage: React.FC = () => {
         body: JSON.stringify({ username, password }),
       });
 
+      console.log('response: ', response);
+
       if (response.ok) {
         await router.push('/dashboard');
       } else {
