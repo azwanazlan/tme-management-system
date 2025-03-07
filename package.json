@@ -1,13 +1,14 @@
 {
   "name": "tme-management-system",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "sync": "tsc database-sync.ts --outDir dist && node dist/database-sync.js"
+    "sync": "tsx -r tsconfig-paths/register src/script/database-sync.ts"
   },
   "dependencies": {
     "axios": "^1.7.9",
@@ -33,6 +34,8 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.19.3",
     "typescript": "^5.7.3"
   }
 }

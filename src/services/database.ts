@@ -23,5 +23,3 @@ export const testDatabaseConnection = async (): Promise<void> => {
     console.error("Error connecting to the database:", error);
   }
 };
-
-module.exports = { testDatabaseConnection };
